@@ -1,6 +1,7 @@
-CKEditor for Yii 2
+CKEditor + KCFinder for Yii 2
 =====
-Text editor
+
+WYSIWYG text editor widget with integrated file browser.
 
 Installation
 ------------
@@ -10,13 +11,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist webvimark/ckeditor "*"
+php composer.phar require --prefer-dist MadAnd/yii2-ckeditor-kcfinder "*"
 ```
 
 or add
 
 ```
-"webvimark/ckeditor": "*"
+"MadAnd/yii2-ckeditor-kcfinder": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -25,7 +26,7 @@ Usage
 -----
 
 ```php
-\webvimark\extensions\ckeditor\CKEditor::widget();
+\MadAnd\ckeditor\CKEditor::widget();
 ```
 
 Possible settings (with default values)
