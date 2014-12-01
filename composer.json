@@ -1,9 +1,13 @@
 {
-	"name": "webvimark/ckeditor",
-	"description": "Ckeditor with file browser for Yii 2",
+	"name": "MadAnd/yii2-ckeditor-kcfinder",
+	"description": "CKEditor + KCFinder for Yii 2",
 	"autoload": {
 		"psr-4": {
-			"webvimark\\extensions\\ckeditor\\": ""
+			"MadAnd\\ckeditor\\": ""
 		}
-	}
+	},
+    "require": {
+        "ckeditor/ckeditor": "dev-full/4.x",
+        "sunhater/kcfinder": "3.*"
+    }
 }
