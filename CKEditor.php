@@ -1,5 +1,5 @@
 <?php
-namespace webvimark\extensions\ckeditor;
+namespace MadAnd\ckeditor;
 
 use yii\base\Widget;
 use Yii;
@@ -108,4 +108,4 @@ JS;
 
 		$this->view->registerJs($script);
 	}
-} 
+}
