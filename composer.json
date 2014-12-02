@@ -1,12 +1,26 @@
 {
     "name": "MadAnd/yii2-ckeditor-kcfinder",
     "description": "CKEditor + KCFinder for Yii 2",
+    "keywords": ["yii2", "ckeditor", "kcfinder", "filebrowser", "WYSIWYG", "widget"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "source": "https://github.com/MadAnd/yii2-ckeditor-kcfinder",
+        "issues": "https://github.com/MadAnd/yii2-ckeditor-kcfinder/issues"
+    },
+    "authors": [
+        {
+            "name": "MadAnd",
+            "homepage": "https://github.com/MadAnd"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "MadAnd\\ckeditor\\": ""
         }
     },
     "require": {
+        "yiisoft/yii2": "*",
         "ckeditor/ckeditor": "dev-full/4.4.x",
         "sunhater/kcfinder": "*"
     }
