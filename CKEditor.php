@@ -1,111 +1,104 @@
 <?php
+/**
+ * @link https://github.com/MadAnd/yii2-ckeditor-kcfinder
+ * @copyright Copyright (c) 2014 HimikLab, MadAnd
+ * @license http://opensource.org/licenses/MIT MIT
+ */
+
 namespace MadAnd\ckeditor;
 
-use yii\base\Widget;
 use Yii;
+use yii\base\Widget;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\widgets\InputWidget;
 
-class CKEditor extends Widget
+/**
+ * WYSIWYG HTML input widget with file browser plugin (KCFinder) for Yii2.
+ * Using as field in ActiveForm:
+ *
+ * ```php
+ * echo $form->field($model, 'text')->widget(CKEditor::className(), [
+ *      'editorOptions' => ['height' => '500px'],
+ * ]);
+ * ```
+ *
+ * Using inline:
+ *
+ * ```php
+ * echo CKEditor::widget([
+ *      'name' => 'comment',
+ *      'value' => 'Please write your comment',
+ *      'editorOptions' => ['height' => '500px'],
+ * ]);
+ * ```
+ *
+ * Using without KCFinder:
+ *
+ * ```php
+ * echo $form->field($model, 'text')->widget(CKEditor::className(), [
+ *      'editorOptions' => ['height' => '500px'],
+ *      'enabledKCFinder' => false,
+ * ]);
+ *
+ * @author MadAnd
+ * @package MadAnd\ckeditor
+ */
+class CKEditor extends InputWidget
 {
-	const TYPE_FULL = 'full';
-	const TYPE_STANDARD = 'standard';
-	const TYPE_SIMPLE = 'simple';
-	const TYPE_INLINE = 'inline';
+    /**
+     * Whether add configuration that enables KCFinder. Defaults to TRUE.
+     * @see http://kcfinder.sunhater.com/
+     * @var bool
+     */
+    public $enabledKCFinder = true;
 
-	/**
-	 * "full", "standard", "simple"
-	 *
-	 * @var string
-	 */
-	public $type = self::TYPE_STANDARD;
+    /**
+     * @var array the options for the CKEditor 4 JS plugin
+     * @see http://docs.ckeditor.com/#!/guide/dev_installation
+     */
+    public $editorOptions = [];
 
-	/**
-	 * @var string
-	 */
-	public $height = '200px';
+    public function init()
+    {
+        parent::init();
 
-	/**
-	 * @var string
-	 */
-	public $language;
+        $view = $this->getView();
+        $id = Json::encode($this->options['id']);
 
-	/**
-	 * @var string
-	 */
-	public $toolBarConfig;
+        if ($this->enabledKCFinder) {
+            $kcFinderBundle = KCFinderAsset::register($view);
+            $kcFinderBaseUrl = $kcFinderBundle->baseUrl;
 
-	/**
-	 * @return string|void
-	 */
-	public function run()
-	{
-		if ( !$this->language )
-			$this->language = Yii::$app->language;
+            // Add KCFinder-specific config for CKEditor
+            $this->editorOptions = ArrayHelper::merge(
+                $this->editorOptions,
+                [
+                    'filebrowserBrowseUrl'      => $kcFinderBaseUrl . '/browse.php?type=files',
+                    'filebrowserImageBrowseUrl' => $kcFinderBaseUrl . '/browse.php?type=images',
+                    'filebrowserFlashBrowseUrl' => $kcFinderBaseUrl . '/browse.php?type=flash',
+                    'filebrowserUploadUrl'      => $kcFinderBaseUrl . '/upload.php?type=files',
+                    'filebrowserImageUploadUrl' => $kcFinderBaseUrl . '/upload.php?type=images',
+                    'filebrowserFlashUploadUrl' => $kcFinderBaseUrl . '/upload.php?type=flash',
+                    'allowedContent'            => true,
+                ]
+            );
+        }
 
-		$bundle = CKEditorAsset::register($this->view);
+        $jsData = "CKEDITOR.replace($id";
+        $jsData .= empty($this->editorOptions) ? '' : (', ' . Json::encode($this->editorOptions));
 
-		$dir = $bundle->baseUrl;
+        $view->registerJs($jsData);
+        CKEditorAsset::register($view);
+    }
 
-		if ( $this->type != CKEditor::TYPE_INLINE)
-		{
-			$js = <<<JS
-				CKEDITOR.replaceAll(function(textarea, config) {
-					config.height = '{$this->height}';
-
-				});
-JS;
-
-			$this->view->registerJs($js);
-		}
-
-
-		$script = "
-			CKEDITOR.config.language = '{$this->language}';
-			CKEDITOR.config.filebrowserBrowseUrl = '$dir/kcfinder/browse.php?type=files';
-			CKEDITOR.config.filebrowserImageBrowseUrl = '$dir/kcfinder/browse.php?type=images';
-			CKEDITOR.config.filebrowserFlashBrowseUrl = '$dir/kcfinder/browse.php?type=flash';
-			CKEDITOR.config.filebrowserUploadUrl = '$dir/kcfinder/upload.php?type=files';
-			CKEDITOR.config.filebrowserImageUploadUrl = '$dir/kcfinder/upload.php?type=images';
-			CKEDITOR.config.filebrowserFlashUploadUrl = '$dir/kcfinder/upload.php?type=flash';
-			CKEDITOR.config.allowedContent = true;
-		";
-
-		if ( $this->toolBarConfig )
-		{
-			$script .= $this->toolBarConfig;
-		}
-		elseif ( $this->type == CKEditor::TYPE_SIMPLE )
-		{
-			$script .= "
-				CKEDITOR.config.toolbar = [
-					['Maximize','Format','Bold','Italic','Underline','StrikeThrough','RemoveFormat','-','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','Link', 'Unlink']
-				] ;
-			";
-		}
-		elseif  ( $this->type == CKEditor::TYPE_STANDARD )
-		{
-			$script .= "
-				CKEDITOR.config.toolbar = [
-					['Maximize','Format'],
-					['Bold','Italic','Underline','StrikeThrough','RemoveFormat','-','TextColor'],
-					['NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-					['Image','Table','-','Link', 'Unlink']
-				] ;
-			";
-		}
-		elseif  ( $this->type == CKEditor::TYPE_INLINE )
-		{
-			$script .= "
-				CKEDITOR.config.extraPlugins = 'inlinesave';
-
-				CKEDITOR.config.toolbar = [
-					['Inlinesave', 'Inlinecancel','Format'],
-					['Bold','Italic','Underline','StrikeThrough','RemoveFormat','-','TextColor'],
-					['NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-					['Image','Table','-','Link', 'Unlink']
-				] ;
-			";
-		}
-
-		$this->view->registerJs($script);
-	}
+    public function run()
+    {
+        if ($this->hasModel()) {
+            echo Html::activeTextarea($this->model, $this->attribute, $this->options);
+        } else {
+            echo Html::textarea($this->name, $this->value, $this->options);
+        }
+    }
 }

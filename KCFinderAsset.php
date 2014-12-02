@@ -9,20 +9,13 @@ namespace MadAnd\ckeditor;
 
 use yii\web\AssetBundle;
 
-
 /**
  * @package MadAnd\ckeditor
  */
-class CKEditorAsset extends AssetBundle
+class KCFinderAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/ckeditor/ckeditor';
-
-    public $js = [
-        'ckeditor.js',
-        'adapters/jquery.js'
-    ];
-
+    public $sourcePath = '@vendor/sunhater/kcfinder';
     public $depends = [
-        'yii\web\JqueryAsset'
+        'MadAnd\ckeditor\CKEditorAsset',
     ];
 }
