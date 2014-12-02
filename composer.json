@@ -11,7 +11,9 @@
     "authors": [
         {
             "name": "MadAnd",
-            "homepage": "https://github.com/MadAnd"
+            "email": "dev@madand.net",
+            "homepage": "https://github.com/MadAnd",
+            "role": "Developer"
         }
     ],
     "autoload": {
