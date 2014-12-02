@@ -88,6 +88,7 @@ class CKEditor extends InputWidget
 
         $jsData = "CKEDITOR.replace($id";
         $jsData .= empty($this->editorOptions) ? '' : (', ' . Json::encode($this->editorOptions));
+        $jsData .= ").on('blur', function(){this.updateElement(); jQuery(this.element.$).trigger('blur');});";
 
         $view->registerJs($jsData);
         CKEditorAsset::register($view);
