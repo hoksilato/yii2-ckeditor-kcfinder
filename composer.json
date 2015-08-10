@@ -1,5 +1,5 @@
 {
-    "name": "Stenyo/yii2-ckeditor-kcfinder",
+    "name": "stenyo/yii2-ckeditor-kcfinder",
     "description": "CKEditor + KCFinder for Yii 2",
     "keywords": ["yii2", "ckeditor", "kcfinder", "filebrowser", "WYSIWYG", "widget"],
     "type": "yii2-extension",
@@ -24,7 +24,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Stenyo\\ckeditor\\": ""
+            "stenyo\\ckeditor\\": ""
         }
     },
     "require": {
