@@ -5,7 +5,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace MadAnd\ckeditor;
+namespace Stenyo\ckeditor;
 
 use yii\web\AssetBundle;
 
