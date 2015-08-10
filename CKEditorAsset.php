@@ -5,7 +5,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace Stenyo\ckeditor;
+namespace stenyo\ckeditor;
 
 use yii\web\AssetBundle;
 
