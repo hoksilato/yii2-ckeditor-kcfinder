@@ -1,14 +1,7 @@
 <?php
-/**
- * @link https://github.com/MadAnd/yii2-ckeditor-kcfinder
- * @copyright Copyright (c) 2014 HimikLab, MadAnd
- * @license http://opensource.org/licenses/MIT MIT
- */
 
 namespace stenyo\ckeditor;
 
-use Yii;
-use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -45,8 +38,8 @@ use yii\widgets\InputWidget;
  * @author MadAnd
  * @package MadAnd\ckeditor
  */
-class CKEditor extends InputWidget
-{
+class CKEditor extends InputWidget {
+
     /**
      * Whether add configuration that enables KCFinder. Defaults to TRUE.
      * @see http://kcfinder.sunhater.com/
@@ -60,8 +53,7 @@ class CKEditor extends InputWidget
      */
     public $editorOptions = [];
 
-    public function init()
-    {
+    public function init() {
         parent::init();
 
         $view = $this->getView();
@@ -73,16 +65,15 @@ class CKEditor extends InputWidget
 
             // Add KCFinder-specific config for CKEditor
             $this->editorOptions = ArrayHelper::merge(
-                $this->editorOptions,
-                [
-                    'filebrowserBrowseUrl'      => $kcFinderBaseUrl . '/browse.php?opener=ckeditor&type=files',
-                    'filebrowserImageBrowseUrl' => $kcFinderBaseUrl . '/browse.php?opener=ckeditor&type=images',
-                    'filebrowserFlashBrowseUrl' => $kcFinderBaseUrl . '/browse.php?opener=ckeditor&type=flash',
-                    'filebrowserUploadUrl'      => $kcFinderBaseUrl . '/upload.php?opener=ckeditor&type=files',
-                    'filebrowserImageUploadUrl' => $kcFinderBaseUrl . '/upload.php?opener=ckeditor&type=images',
-                    'filebrowserFlashUploadUrl' => $kcFinderBaseUrl . '/upload.php?opener=ckeditor&type=flash',
-                    'allowedContent'            => true,
-                ]
+                            $this->editorOptions, [
+                        'filebrowserBrowseUrl' => $kcFinderBaseUrl . '/browse.php?opener=ckeditor&type=files',
+                        'filebrowserImageBrowseUrl' => $kcFinderBaseUrl . '/browse.php?opener=ckeditor&type=images',
+                        'filebrowserFlashBrowseUrl' => $kcFinderBaseUrl . '/browse.php?opener=ckeditor&type=flash',
+                        'filebrowserUploadUrl' => $kcFinderBaseUrl . '/upload.php?opener=ckeditor&type=files',
+                        'filebrowserImageUploadUrl' => $kcFinderBaseUrl . '/upload.php?opener=ckeditor&type=images',
+                        'filebrowserFlashUploadUrl' => $kcFinderBaseUrl . '/upload.php?opener=ckeditor&type=flash',
+                        'allowedContent' => true,
+                            ]
             );
         }
 
@@ -94,12 +85,12 @@ class CKEditor extends InputWidget
         CKEditorAsset::register($view);
     }
 
-    public function run()
-    {
+    public function run() {
         if ($this->hasModel()) {
             echo Html::activeTextarea($this->model, $this->attribute, $this->options);
         } else {
             echo Html::textarea($this->name, $this->value, $this->options);
         }
     }
+
 }
