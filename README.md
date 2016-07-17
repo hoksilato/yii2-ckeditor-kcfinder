@@ -11,13 +11,21 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist MadAnd/yii2-ckeditor-kcfinder "*"
+php composer.phar require --prefer-dist hoksilato/yii2-ckeditor-kcfinder "*"
+```
+
+If your `composer.json` has `stability` option set to `stable` (this is a
+default value, if not set explicitly), run the following command:
+
+```
+php composer.phar require --prefer-dist "hoksilato/yii2-ckeditor-kcfinder:dev-master" \
+    "ckeditor/ckeditor:@dev" "sunhater/kcfinder:@dev"
 ```
 
 or add
 
 ```
-"MadAnd/yii2-ckeditor-kcfinder": "*"
+"hoksilato/yii2-ckeditor-kcfinder": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -26,14 +34,14 @@ Usage
 -----
 
 ```php
-\MadAnd\ckeditor\CKEditor::widget();
+\hoksilato\ckeditor\CKEditor::widget();
 ```
 
 Possible settings (with default values)
 ---------------------------------------
 
+```php
 'type' => CKEditor::TYPE_STANDARD,
-
-'height'=>'200px',
-
-'language'=>Yii::$app->language,
+'height' => '200px',
+'language' => Yii::$app->language,
+```

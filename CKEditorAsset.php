@@ -1,14 +1,14 @@
 <?php
 
-namespace stenyo\ckeditor;
+namespace hoksilato\ckeditor;
 
 use yii\web\AssetBundle;
 
 /**
  * @package MadAnd\ckeditor
  */
-class CKEditorAsset extends AssetBundle {
-
+class CKEditorAsset extends AssetBundle
+{
     public $sourcePath = '@vendor/ckeditor/ckeditor';
     public $js = [
         'ckeditor.js',
@@ -17,5 +17,4 @@ class CKEditorAsset extends AssetBundle {
     public $depends = [
         'yii\web\JqueryAsset'
     ];
-
 }

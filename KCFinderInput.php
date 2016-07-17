@@ -1,14 +1,14 @@
 <?php
 
-namespace stenyo\ckeditor;
+namespace hoksilato\ckeditor;
 
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
-use stenyo\ckeditor\KCFinderSelectAsset;
+use hoksilato\ckeditor\KCFinderSelectAsset;
 
-class KCFinderInput extends InputWidget {
-
+class KCFinderInput extends InputWidget
+{
     const BTN_DEFAULT = 'default';
     const BTN_GRAY = 'default';
     const BTN_PRIMARY = 'primary';
@@ -31,13 +31,15 @@ class KCFinderInput extends InputWidget {
     ];
     public $kcCallback = 'function(url) { console.log(url) }';
 
-    public function init() {
+    public function init()
+    {
         parent::init();
     }
 
-    public function run() {
+    public function run()
+    {
         $assets = KCFinderAsset::register($this->getView());
-        if(!isset($this->kcOptions['url'])) {
+        if (!isset($this->kcOptions['url'])) {
             $this->kcOptions['url'] = $assets->baseUrl;
         }
         if ($this->hasModel()) {
@@ -57,5 +59,4 @@ class KCFinderInput extends InputWidget {
         echo Html::endTag('span');
         echo Html::endTag('div');
     }
-
 }

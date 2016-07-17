@@ -1,12 +1,12 @@
 {
-    "name": "stenyo/yii2-ckeditor-kcfinder",
+    "name": "hoksilato/yii2-ckeditor-kcfinder",
     "description": "CKEditor + KCFinder for Yii 2",
     "keywords": ["yii2", "ckeditor", "kcfinder", "filebrowser", "WYSIWYG", "widget"],
     "type": "yii2-extension",
     "license": "MIT",
     "support": {
-        "source": "https://github.com/Stenyo/yii2-ckeditor-kcfinder",
-        "issues": "https://github.com/Stenyo/yii2-ckeditor-kcfinder/issues"
+        "source": "https://github.com/hoksilato/yii2-ckeditor-kcfinder",
+        "issues": "https://github.com/hoksilato/yii2-ckeditor-kcfinder/issues"
     },
     "authors": [
         {
@@ -20,11 +20,17 @@
             "email": "stenyo@parallaxsolutions.com.br",
             "homepage": "https://www.parallaxsolutions.com.br",
             "role": "Developer"
+        },
+        {
+            "name": "Cang Ta",
+            "email": "hoksilato176@gmail.com",
+            "homepage": "https://www.hoksilato.asia",
+            "role": "Developer"
         }
     ],
     "autoload": {
         "psr-4": {
-            "stenyo\\ckeditor\\": ""
+            "hoksilato\\ckeditor\\": ""
         }
     },
     "require": {
